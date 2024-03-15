@@ -26,7 +26,7 @@
 
     <div class="section-title mb-3 mt-4 mt-md-0">Products</div>
     <div class="row g-4">
-        <div class="col-sm-6 col-lg-3 col-xl-2 prod-card" *ngFor="let item of productsData?.reverse().slice(0,18);">
+        <div class="col-sm-6 col-lg-3 col-xl-2 prod-card" *ngFor="let item of productsData?.slice(0,18);">
             <div class="product card pointer">
                 <div [routerLink]="['/details', item._id]">
                     <div class="card-img-top px-5 px-md-3">

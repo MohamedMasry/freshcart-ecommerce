@@ -97,7 +97,7 @@ export class ApiDataService {
 
   cartOnlinePayment(cartID: string, userData: object): Observable<any> {
     let currentRoute = window.location.host;
-    return this._HttpClient.post(`${this.BaseUrl}orders/checkout-session/${cartID}?url=http://${currentRoute}`, {
+    return this._HttpClient.post(`${this.BaseUrl}orders/checkout-session/${cartID}?url=http://${currentRoute}/freshcart-ecommerce`, {
       shippingAddress: userData,
     });
   }

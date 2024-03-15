@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
 
     this._ApiDataService.getAllProducts().subscribe({
       next: (response) => {
-        this.productsData = response.data;
+        this.productsData = response.data?.reverse();
       },
       error: (error) => {
         console.log(error)
