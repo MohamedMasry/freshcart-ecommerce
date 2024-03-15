@@ -1,0 +1,103 @@
+<section class="container-fluid d-flex flex-column justify-content-start mt-3 mt-lg-0">
+
+    <form [formGroup]="addAddressForm"
+        class="d-flex flex-wrap justify-content-center flex-grow-0 column-gap-3 w-100 mx-auto"
+        (ngSubmit)="handleAddAddress()">
+
+        <div class="inputContainer">
+            <label for="name">Name :</label>
+            <input formControlName="name" autocomplete="name" type="text" id="name" [ngClass]="{'is-invalid': addAddressForm.get('name')?.touched && addAddressForm.get('name')?.errors ,
+'is-valid': addAddressForm.get('name')?.value?.length > 0 && !addAddressForm.get('name')?.errors}"
+                class="form-control accountInput" placeholder="Name" (input)="inputChange($event)">
+            <div class="alert alert-danger rounded-3 text-center shadow"
+                *ngIf=" (addAddressForm.get('name')?.touched || addAddressForm.get('name')?.value?.length > 0) && addAddressForm.get('name')?.errors">
+                <p *ngIf="addAddressForm.get('name')?.getError('required')">Name is required</p>
+                <p *ngIf="addAddressForm.get('name')?.getError('maxlength')">Name Max Length 20</p>
+            </div>
+        </div>
+
+        <div class="inputContainer">
+            <label for="address">Address :</label>
+            <input formControlName="details" type="text" id="address" autocomplete="street-address" [ngClass]="{'is-invalid': addAddressForm.get('details')?.touched && addAddressForm.get('details')?.errors ,
+        'is-valid': addAddressForm.get('details')?.touched && !addAddressForm.get('details')?.errors}"
+                class="form-control accountInput" placeholder="Address..." (input)="inputChange($event)">
+            <div class="alert alert-danger rounded-3 text-center shadow"
+                *ngIf=" addAddressForm.get('details')?.touched && addAddressForm.get('details')?.errors">
+                <p *ngIf="addAddressForm.get('details')?.getError('required')"> Address is required</p>
+            </div>
+        </div>
+
+        <div class="inputContainer">
+            <label for="city">City :</label>
+            <input formControlName="city" type="text" id="city" autocomplete="address-level2" [ngClass]="{'is-invalid': (addAddressForm.get('city')?.touched || addAddressForm.get('city')?.value?.length > 0) && addAddressForm.get('city')?.errors ,
+        'is-valid': addAddressForm.get('city')?.value?.length > 0  && !addAddressForm.get('city')?.errors}"
+                class="form-control accountInput" placeholder="City..." (input)="inputChange($event)">
+
+            <div class="alert alert-danger rounded-3 text-center shadow"
+                *ngIf=" (addAddressForm.get('city')?.touched || addAddressForm.get('city')?.value?.length > 0) && addAddressForm.get('city')?.errors">
+                <p *ngIf="addAddressForm.get('city')?.getError('required')"> City is required</p>
+            </div>
+        </div>
+
+        <div class="inputContainer">
+            <label for="phone">Phone Number :</label>
+            <input formControlName="phone" type="tel" id="phone" autocomplete="tel" [ngClass]="{'is-invalid': (addAddressForm.get('phone')?.touched || addAddressForm.get('phone')?.value?.length > 0) && addAddressForm.get('phone')?.errors ,
+        'is-valid': addAddressForm.get('phone')?.value?.length > 0  && !addAddressForm.get('phone')?.errors}"
+                class="form-control accountInput" placeholder="Phone Number..." (input)="inputChange($event)">
+            <div class="alert alert-danger rounded-3 text-center shadow"
+                *ngIf=" addAddressForm.get('phone')?.touched && addAddressForm.get('phone')?.errors">
+                <p *ngIf="addAddressForm.get('phone')?.getError('required')"> Phone is required</p>
+                <p *ngIf="addAddressForm.get('phone')?.getError('pattern')"> Only accept egyptian numbers</p>
+            </div>
+        </div>
+
+        <div class="text-center mb-3 w-100">
+            <button type="submit" [disabled]="addAddressForm.invalid" class="btn-main mt-1 ">
+                <span *ngIf="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></span> Add Address
+            </button>
+        </div>
+
+    </form>
+
+
+    <div class="address-container px-md-3 pb-md-3" *ngIf="savedAddresses else emptyAddresses">
+
+        <div class="address-item">
+            <ul>
+                <li class="position-relative" #addressCont *ngFor="let address of savedAddresses.data">
+                    <h3 class="address-name position-absolute top-0 end-0">{{address.name}}</h3>
+    
+                    <div class="table-responsive w-75 mx-auto rounded-5 mt-5 text-center ">
+                        <table class="table table-main ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-light ">
+                                    <td scope="row"> {{address.details}}</td>
+                                    <td> {{address.city}}</td>
+                                    <td> {{address.phone}}</td>
+                                    <td> <button #deleteBtn (click)="removeAddress(address._id,addressCont,deleteBtn)" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button> </td>
+                                </tr>
+    
+                            </tbody>
+                        </table>
+                    </div>
+    
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <ng-template #emptyAddresses>
+        <div class="text-center d-flex flex-column justify-content-center align-content-center">
+            <h6 class="h5">You don't have saved addresses ...</h6>
+        </div>
+    </ng-template>
+
+</section>

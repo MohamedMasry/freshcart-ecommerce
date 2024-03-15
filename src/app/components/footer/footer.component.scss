@@ -1,0 +1,17 @@
+//Footer
+@import "../../../styles.scss";
+
+footer {
+    background-color: white;
+}
+
+.form-control {
+    padding: 0px 10px;
+    line-height: 1;
+
+    &:focus {
+        border-color: $main-lighter;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba($color: $main-color, $alpha: 0.6);
+    }
+}

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="section-title mb-3 mt-4 mt-md-0">Categories</div>
+    </div>
+    <div class="category-slider">
+        <owl-carousel-o [options]="customOptions">
+
+            <ng-container *ngFor="let item of categoriesData?.data">
+                <ng-template carouselSlide >
+                    <div class="category-card">
+                        <div class="slider-img pointer" >
+                            <img [src]="item.image" class="w-100 " [alt]="'image of ' + item.name" (click)="getSubCategory(item._id)">
+                        </div>
+                        <h2 class="h6 text-center">{{item.name}}</h2>
+                    </div>
+                </ng-template>
+            </ng-container>
+
+        </owl-carousel-o>
+    </div>
+
+</div>
+
+<div class="container" *ngIf="subCategoriesData != null">
+    <div class="section-title mb-3 mt-4 mt-md-0">Sub Categories</div>
+    <div class="row">
+        <div class="col-xl-2 col-lg-3 col-md-4" *ngFor="let item of subCategoriesData">
+            <h3 class="subcategory-text">{{item.name}}</h3>
+        </div>
+    </div>
+</div>

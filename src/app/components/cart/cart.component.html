@@ -1,0 +1,55 @@
+<div class="container px-lg-5">
+    <div class="cart bg-light py-4 px-5 px-md-4 position-relative">
+
+        <div class="cart-container" *ngIf="cartResponse else emptyCart">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="section-title mb-3 mt-3 mt-md-0">Shopping Cart</div>
+                <h3 class="price-text font-18">Total : {{cartData.totalCartPrice}} EGP</h3>
+                <button [routerLink]="['/checkout', cartData._id]" class="btn btn-main checkoutBtn">Proceed to checkout <i
+                        class="fa-solid fa-truck-fast"></i></button>
+            </div>
+
+            <div class="products-container" #cartCont>
+
+                <ul>
+                    <li *ngFor="let item of cartData.products" #productCont>
+                        <div class="row align-items-center px-2 px-md-0 ">
+                            <div class="col-4 col-md-2 text-center">
+                                <img [src]="item.product.imageCover" [routerLink]="['/details', item.product._id]"
+                                    class=" my-xl-2 w-100 rounded-4 pointer" [alt]="'image of ' + item.product.title ">
+                            </div>
+                            <div class="col-8 col-md-10">
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-between align-items-center pe-md-3 py-3 py-md-0">
+                                    <div class="prod-details">
+                                        <p><a [routerLink]="['/details', item.product._id]">{{item.product.title}}</a>
+                                        </p>
+                                        <p><strong>{{item.price}} <span>EGP</span></strong> </p>
+                                        <p><span>Total price: {{item.count * item.price}} EGP </span></p>
+                                    </div>
+                                    <div class="prod-btns d-flex align-items-center gap-2">
+                                        <button [disabled]="item.count <= 1" (click)="editCartQuantity(item.product._id,item.count-1)" class="countBtn decrease"><i class="fa-solid fa-minus"></i> </button>
+                                        <a class="mx-1"> {{item.count}} </a>
+                                        <button (click)="editCartQuantity(item.product._id,item.count+1)" class="countBtn increase"> <i class="fa-solid fa-plus"></i> </button>
+                                        <button #deleteBtn (click)="removeCartItem(item.product._id,productCont,deleteBtn)" class="btn btn-danger ms-4"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-danger" #clearBtn (click)="clearCart(cartCont,clearBtn)">Clear Cart <i
+                        class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+
+        <ng-template #emptyCart>
+            <div class="text-center d-flex flex-column justify-content-center align-content-center">
+                <h6 class="h1">Your Cart is empty ...</h6>
+                <img src="../../../assets/images/cartEmpty.gif" class="w-25 mx-auto" alt="">
+            </div>
+        </ng-template>
+    </div>
+</div>

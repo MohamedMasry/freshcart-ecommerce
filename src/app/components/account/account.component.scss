@@ -1,0 +1,94 @@
+@import '../../../styles.scss';
+
+
+.account {
+    @include product();
+
+    .account-container {
+        padding: 30px 0px;
+        padding-top: 0;
+
+        .price-text {
+            @include priceText();
+            font-size: 18px;
+        }
+
+        .account-settings {
+            position: relative;
+            margin: 10px 0px;
+            .nav-tabs{
+                border: unset
+            }
+            .nav-tabs .nav-link {
+                @include nav-hover();
+                margin: 0 10px;
+                white-space: nowrap;
+                border: unset;
+                font-weight: normal;
+                box-shadow: 3px 3px 8px #dfe0e1,
+                -3px -3px 8px #ffffff;
+                background-color: #F8F9FA;
+                border-radius: 20px;
+                &:hover{
+                    border: unset;
+                    box-shadow: -3px -3px 8px #dfe0e1,
+                    3px 3px 8px #ffffff;
+                }
+            }
+        
+            .nav-link.active-link {
+                background-image: linear-gradient(to right, $main-lighter 0%, $main-color 51%, #84fab0 100%) !important;
+                color: $light-color !important;
+                transform: scale(1);
+                font-weight: bold;
+                text-shadow: 0 0 3px black;
+                background-size: 200% auto;
+                border-radius: 10px !important;
+
+                &:hover {
+                    background-position: right center;
+                }
+            }
+
+            li {
+                margin-bottom: 20px;
+                cursor: pointer;
+
+                .active-link{
+                    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.1);
+                }
+
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (max-width: 768px) {
+    .container,
+    .container-sm {
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 730px) {
+    .container,
+    .container-sm {
+        max-width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 470px) {
+    .account {
+        padding: 40px 10px !important;
+    }
+}

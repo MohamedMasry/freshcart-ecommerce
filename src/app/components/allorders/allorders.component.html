@@ -1,0 +1,62 @@
+<div class="container px-lg-5">
+    <div class="orders bg-light py-4 px-5 px-md-4 position-relative">
+
+        <div class="orders-container" *ngIf="userOrders.length > 0 else emptyOrders">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="section-title mb-3 mt-3 mt-md-0">Orders</div>
+
+            </div>
+
+            <div class="orders-container" #ordersCont>
+                <ul>
+                    <li class="p-md-2 position-relative px-2" *ngFor="let order of userOrders">
+                            <h3 class="order-number position-absolute top-0 end-0">Order#{{order.id}}</h3>
+                        <div class="row align-items-center pt-5 g-3">
+                            <div class="col-4 col-md-3 col-xl-2" *ngFor="let item of order.cartItems">
+                                <div [routerLink]="['/details', item.product._id]" class="img-cover rounded-4 pointer overflow-hidden position-relative">
+                                    <img [src]="item.product.imageCover" class="w-100" [alt]="'image of' + item.product.title ">
+                                    <h3 class="order-number position-absolute top-0 end-0">x{{item.count}}</h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="table-responsive w-75 mx-auto rounded-5 mt-3 text-center ">
+                            <table class="table table-main ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Payment Method</th>
+                                        <th scope="col">Ordered From</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-light ">
+                                        <td scope="row"> {{order.shippingAddress.details}}</td>
+                                        <td> {{order.shippingAddress.city}}</td>
+                                        <td> {{order.shippingAddress.phone}}</td>
+                                        <td> {{order.paymentMethodType | titlecase}} </td>
+                                        <td> {{order.createdAt.slice(0,10)}} </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <h3 class="price-text font-18">Total : {{order.totalOrderPrice}} EGP</h3>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ng-template #emptyOrders>
+            <div class="text-center d-flex flex-column justify-content-center align-content-center">
+                <h6 class="h1">You have no orders ...</h6>
+                <img src="../../../assets/images/cartEmpty.gif" class="w-25 mx-auto" alt="">
+            </div>
+        </ng-template>
+    </div>
+</div>

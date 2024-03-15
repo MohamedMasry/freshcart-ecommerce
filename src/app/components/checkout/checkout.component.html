@@ -1,0 +1,55 @@
+<section class="container my-5 bg-white p-5 rounded-4 shadow">
+    <div class="section-title">Check Out</div>
+    <form [formGroup]="checkOutForm" class="authForm px-0 px-md-5 mx-auto" (ngSubmit)="handleCheckOut(paymentInput)">
+
+        <div class="alert alert-danger rounded-3 text-center shadow" *ngIf=" responseMsg?.statusMsg == 'fail' ">
+            <p>{{responseMsg?.message}}</p>
+        </div>
+
+        <label for="address">Address :</label>
+        <input formControlName="details" type="text" id="address" autocomplete="street-address" [ngClass]="{'is-invalid': (checkOutForm.get('details')?.touched || checkOutForm.get('details')?.value?.length > 0) && checkOutForm.get('details')?.errors ,
+        'is-valid': checkOutForm.get('details')?.touched && !checkOutForm.get('details')?.errors}"
+            class="form-control registerInput" placeholder="Address..." (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" checkOutForm.get('details')?.touched && checkOutForm.get('details')?.errors">
+            <p *ngIf="checkOutForm.get('details')?.getError('required')">⚠️ Address is required</p>
+        </div>
+
+        <label for="city">City :</label>
+        <input formControlName="city" type="text" id="city" autocomplete="address-level2"
+        [ngClass]="{'is-invalid': (checkOutForm.get('city')?.touched || checkOutForm.get('city')?.value?.length > 0) && checkOutForm.get('city')?.errors ,
+        'is-valid': checkOutForm.get('city')?.value?.length > 0  && !checkOutForm.get('city')?.errors}"
+            class="form-control registerInput" placeholder="City..." (input)="inputChange($event)">
+
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" (checkOutForm.get('city')?.touched || checkOutForm.get('city')?.value?.length > 0) && checkOutForm.get('city')?.errors">
+            <p *ngIf="checkOutForm.get('city')?.getError('required')">⚠️ City is required</p>
+        </div>
+
+
+        <label for="phone">Phone Number :</label>
+        <input formControlName="phone" type="tel" id="phone" autocomplete="tel" [ngClass]="{'is-invalid': (checkOutForm.get('phone')?.touched || checkOutForm.get('phone')?.value?.length > 0) && checkOutForm.get('phone')?.errors ,
+        'is-valid': checkOutForm.get('phone')?.value?.length > 0  && !checkOutForm.get('phone')?.errors}"
+            class="form-control registerInput" placeholder="Phone Number..." (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" checkOutForm.get('phone')?.touched && checkOutForm.get('phone')?.errors">
+            <p *ngIf="checkOutForm.get('phone')?.getError('required')">⚠️ Phone is required</p>
+        </div>
+
+        <label for="payment">Payment Method :</label>
+        <select class="form-control registerInput select-input" name="payment" id="payment" 
+        (input)="selectChange($event);" #paymentInput>
+            <option value="notSelected" selected>Payment Method ...</option>
+            <option value="cash">Cash</option>
+            <option value="visa">Online Payment</option>
+        </select>
+
+
+
+        <div class="d-flex justify-content-center align-items-center mt-5 ">
+            <button type="submit" [disabled]="checkOutForm.invalid || paymentSelected == false" class="btn-main ">
+                <span *ngIf="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></span> Check Out
+            </button>
+        </div>
+    </form>
+</section>

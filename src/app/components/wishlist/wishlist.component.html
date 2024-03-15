@@ -1,0 +1,47 @@
+<div class="container px-lg-5">
+    <div class="wishlist bg-light py-4 px-5 px-md-4 position-relative">
+
+        <div class="wishlist-container" *ngIf="wishlistResponse else emptyWishlist">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="section-title mb-3 mt-3 mt-md-0">Wishlist <span class="text-danger ">❤</span></div>
+                <div class="price-text"> {{wishlistResponse.count}} Items</div>
+            
+            </div>
+
+            <div class="products-container">
+
+                <ul>
+                    <li *ngFor="let item of wishlistData" #productCont>
+                        <div class="row align-items-center px-2 px-md-0 ">
+                            <div class="col-4 col-md-2 text-center">
+                                <img [src]="item.imageCover" [routerLink]="['/details', item._id]"
+                                    class=" my-xl-2 w-100 rounded-4 pointer" [alt]="'image of ' + item.title ">
+                            </div>
+                            <div class="col-8 col-md-10">
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-between align-items-center pe-md-3 py-3 py-md-0 ">
+                                    <div class="prod-details">
+                                        <p><a [routerLink]="['/details', item._id]">{{item.title}}</a>
+                                        </p>
+                                        <p><strong>{{item.price}} <span>EGP</span></strong> </p>
+                                    </div>
+                                    <div class="prod-btns d-flex justify-content-end align-items-center flex-md-shrink-0">
+                                        <button (click)="addToCart(item._id)" class="addCart btn btn-main">Add To Cart</button>
+                                        <button #deleteBtn (click)="removeWishlistItem(item._id,productCont,deleteBtn)" class="btn btn-danger ms-4"><i class="fa-solid fa-heart-circle-minus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ng-template #emptyWishlist>
+            <div class="text-center d-flex flex-column justify-content-center align-content-center">
+                <h6 class="h1">Your Wishlist is empty ...</h6>
+                <img src="../../../assets/images/wishlistNotfound.png" class="w-50 mx-auto" alt="">
+            </div>
+        </ng-template>
+    </div>
+</div>

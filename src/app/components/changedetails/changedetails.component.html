@@ -1,0 +1,44 @@
+<section class="container-fluid d-flex justify-content-center mt-3 mt-lg-0">
+
+    <form [formGroup]="changeDetailsForm" class=" flex-grow-0 w-75 mx-auto" (ngSubmit)="handleChangeDetails()">
+
+        <label for="name">Name :</label>
+        <input formControlName="name" autocomplete="name" type="text" id="name" [ngClass]="{'is-invalid': changeDetailsForm.get('name')?.touched && changeDetailsForm.get('name')?.errors ,
+    'is-valid': changeDetailsForm.get('name')?.value?.length > 0 && !changeDetailsForm.get('name')?.errors}"
+            class="form-control accountInput" placeholder="Name" (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" (changeDetailsForm.get('name')?.touched || changeDetailsForm.get('name')?.value?.length > 0) && changeDetailsForm.get('name')?.errors">
+            <p *ngIf="changeDetailsForm.get('name')?.getError('required')">Name is required</p>
+            <p *ngIf="changeDetailsForm.get('name')?.getError('minlength')">Name Min Length 3</p>
+            <p *ngIf="changeDetailsForm.get('name')?.getError('maxlength')">Name Max Length 20</p>
+        </div>
+
+        <label for="email">E-Mail :</label>
+        <input formControlName="email" autocomplete="email" type="email" id="email" [ngClass]="{'is-invalid': changeDetailsForm.get('email')?.touched && changeDetailsForm.get('email')?.errors ,
+        'is-valid': changeDetailsForm.get('email')?.touched && !changeDetailsForm.get('email')?.errors}"
+            class="form-control accountInput" placeholder="E-Mail" (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" changeDetailsForm.get('email')?.touched && changeDetailsForm.get('email')?.errors">
+            <p *ngIf="changeDetailsForm.get('email')?.getError('required')">E-mail is required</p>
+            <p *ngIf="changeDetailsForm.get('email')?.getError('email')">E-mail must be valid</p>
+        </div>
+
+        <label for="phone">Phone Number :</label>
+        <input formControlName="phone" autocomplete="tel" type="tel" id="phone" [ngClass]="{'is-invalid': changeDetailsForm.get('phone')?.touched && changeDetailsForm.get('phone')?.errors ,
+        'is-valid':  !changeDetailsForm.get('phone')?.errors}"
+            class="form-control accountInput" placeholder="Phone Number..." (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" changeDetailsForm.get('phone')?.touched && changeDetailsForm.get('phone')?.errors">
+            <p *ngIf="changeDetailsForm.get('phone')?.getError('required')">Phone is required</p>
+            <p *ngIf="changeDetailsForm.get('phone')?.getError('pattern')">Phone must be a valid egyption phone number</p>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" [disabled]="changeDetailsForm.invalid" class="btn-main mt-4 ">
+                <span *ngIf="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></span> Change Details
+            </button>
+        </div>
+
+    </form>
+
+</section>

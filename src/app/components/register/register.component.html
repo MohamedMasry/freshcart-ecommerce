@@ -1,0 +1,66 @@
+<section class="container my-5 bg-white p-5 rounded-4 shadow">
+    <div class="section-title">Register</div>
+
+    <form [formGroup]="registerForm" class="authForm px-0 px-md-5 mx-auto" (ngSubmit)="handleRegister()">
+        <label for="name">Name :</label>
+        <input formControlName="name" autocomplete="name" type="text" id="name" [ngClass]="{'is-invalid': (registerForm.get('name')?.touched || registerForm.get('name')?.value?.length > 0) && registerForm.get('name')?.errors ,
+    'is-valid': registerForm.get('name')?.value?.length > 0 && !registerForm.get('name')?.errors}"
+            class="form-control registerInput" placeholder="Name" (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" (registerForm.get('name')?.touched || registerForm.get('name')?.value?.length > 0) && registerForm.get('name')?.errors">
+            <p *ngIf="registerForm.get('name')?.getError('required')">⚠️ Name is required</p>
+            <p *ngIf="registerForm.get('name')?.getError('minlength')">⚠️ Name Min Length 3</p>
+            <p *ngIf="registerForm.get('name')?.getError('maxlength')">⚠️ Name Max Length 20</p>
+        </div>
+
+        <label for="email">E-Mail :</label>
+        <input formControlName="email" autocomplete="email" type="email" id="email" [ngClass]="{'is-invalid': (registerForm.get('email')?.touched || registerForm.get('email')?.value?.length > 0) && registerForm.get('email')?.errors ,
+        'is-valid': registerForm.get('email')?.touched && !registerForm.get('email')?.errors}"
+            class="form-control registerInput" placeholder="E-Mail" (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" registerForm.get('email')?.touched && registerForm.get('email')?.errors">
+            <p *ngIf="registerForm.get('email')?.getError('required')">⚠️ E-mail is required</p>
+            <p *ngIf="registerForm.get('email')?.getError('email')">⚠️ E-mail must be valid</p>
+        </div>
+
+        <label for="password">Password :</label>
+        <input formControlName="password" autocomplete="current-password" type="password" id="password" [ngClass]="{'is-invalid': (registerForm.get('password')?.touched || registerForm.get('password')?.value?.length > 0) && registerForm.get('password')?.errors ,
+        'is-valid': registerForm.get('password')?.value?.length > 0 && !registerForm.get('password')?.errors}"
+            class="form-control registerInput" placeholder="Password" (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" (registerForm.get('password')?.touched || registerForm.get('password')?.value?.length > 0) && registerForm.get('password')?.errors">
+            <p *ngIf="registerForm.get('password')?.getError('required')">⚠️ Password is required</p>
+            <p *ngIf="registerForm.get('password')?.getError('pattern')">⚠️ Password must start with upperCase then
+                length from 6 to 20</p>
+        </div>
+
+        <label for="rePassword">Re-Type Password :</label>
+        <input formControlName="rePassword" type="password" id="rePassword" [ngClass]="{'is-invalid': (registerForm.get('rePassword')?.touched || registerForm.get('rePassword')?.value?.length > 0) && registerForm.get('rePassword')?.errors ,
+        'is-valid': registerForm.get('rePassword')?.value?.length > 0 && !registerForm.get('rePassword')?.errors}"
+            class="form-control registerInput" placeholder="Re-Type Password" (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" (registerForm.get('rePassword')?.touched || registerForm.get('rePassword')?.value?.length > 0) && registerForm.get('rePassword')?.errors">
+            <p *ngIf="registerForm.get('rePassword')?.getError('required')">⚠️ Re-Type Password is required</p>
+            <p *ngIf="registerForm.get('rePassword')?.getError('mismatch')">⚠️ Passwords must match</p>
+        </div>
+
+        <label for="phone">Phone Number :</label>
+        <input formControlName="phone" autocomplete="tel" type="tel" id="phone" [ngClass]="{'is-invalid': (registerForm.get('phone')?.touched || registerForm.get('phone')?.value?.length > 0) && registerForm.get('phone')?.errors ,
+        'is-valid': !registerForm.get('phone')?.errors}"
+            class="form-control registerInput" placeholder="Phone Number..." (input)="inputChange($event)">
+        <div class="alert alert-danger rounded-3 text-center shadow"
+            *ngIf=" registerForm.get('phone')?.touched && registerForm.get('phone')?.errors">
+            <p *ngIf="registerForm.get('phone')?.getError('required')">⚠️ Phone is required</p>
+            <p *ngIf="registerForm.get('phone')?.getError('pattern')">⚠️ Phone must be a valid egyption phone number</p>
+        </div>
+
+        <div style="text-align: right;">
+            <button type="submit" [disabled]="registerForm.invalid" class="btn-main mt-4 ">
+                <span *ngIf="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></span> Register
+            </button>
+        </div>
+
+    </form>
+
+
+</section>

@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="product-details bg-light py-5 px-5 px-md-3 px-lg-5 position-relative"
+        *ngIf="productDetails else wrongID">
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <owl-carousel-o [options]="customOptions">
+
+                        <ng-container *ngFor="let image of productDetails.images">
+                            <ng-template carouselSlide>
+                                <img [src]="image" class="w-100">
+                            </ng-template>
+                        </ng-container>
+
+                    </owl-carousel-o>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="product-container">
+                    <div class="section-title mb-3 mt-4 mt-md-0">Product Details</div>
+                    <h5 class="card-title">{{productDetails.title}}</h5>
+                    <div class="d-flex justify-content-between align-items-center mt-3 mb-0">
+                        <p class="price-text"><span>{{productDetails.price}}</span> EGP</p>
+                        <p class="ratingAvg">
+                            <i class="fa-solid fa-star rating-color me-1"></i>
+                            <span>{{productDetails.ratingsAverage}}</span>
+                        </p>
+                    </div>
+                    <div class="details-container">
+                        <ul>
+                            <li><span>Description :</span> {{productDetails.description}}</li>
+                            <li><span>Category :</span> <a> {{productDetails.category.name}}</a></li>
+                            <li><span>Sub-Category :</span> <a> {{productDetails.subcategory[0].name}}</a></li>
+                            <li><span>Brand :</span> <a> {{productDetails.brand.name}}</a></li>
+                        </ul>
+
+                    </div>
+
+                    <div class="d-flex justify-content-center align-items-lg-center flex-lg-column pt-0 text-center">
+                        <br>
+                        <button (click)="addToCart()" class="addCart btn btn-main w-75">Add To Cart</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <button #wishlistBtn (click)="toggleWishlist(productDetails._id,wishlistBtn)"
+            [ngClass]="{'active': activeWishlist(productDetails._id)}" class="addWishlist btn">
+            <i class="fa-solid fa-heart fs-3 pointer"></i>
+        </button>
+
+    </div>
+    <ng-template #wrongID>
+        <div class="text-center d-flex flex-column justify-content-center align-content-center">
+            <h6 class="h1">Are You sure with this product id ? ... </h6>
+        </div>
+    </ng-template>
+</div>

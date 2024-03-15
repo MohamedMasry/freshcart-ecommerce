@@ -1,0 +1,116 @@
+@import '../../../styles.scss';
+
+
+.cart {
+    @include product();
+
+    .cart-container {
+        padding: 30px 0px;
+        padding-top: 0;
+
+        .price-text {
+            @include priceText();
+            font-size: 18px;
+        }
+
+        .products-container {
+            position: relative;
+            margin: 10px 0px;
+
+            ul {
+                padding-left: 0px;
+
+
+                li {
+                    margin-bottom: 10px;
+                    border-radius: 20px;
+                    background: #F8F9FA;
+                    box-shadow: 3px 3px 8px #dfe0e1,
+                        -3px -3px 8px #ffffff;
+
+                    img {
+                        box-shadow: 0 0 2px $main-color;
+                    }
+
+                    p {
+                        margin: 5px 0px;
+
+                        span {
+                            color: $main-color;
+                        }
+                    }
+
+                    &:hover {
+                        box-shadow: -3px -3px 8px #dfe0e1,
+                            3px 3px 8px #ffffff;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .deleting {
+        transition: 0.5s;
+        transform: scaleY(0) translateX(100%);
+    }
+}
+
+.checkoutBtn{
+    padding-right: 0px;
+    overflow: hidden;
+    transition: 0.3s;
+    outline: 0;
+    svg{
+        transform: translateX(100%);
+        transition: 0.3s;
+    }
+
+    &:hover{
+        padding-right: 15px;
+        box-shadow: 0 0 1px rgba($color: $main-darker, $alpha: 0.5),
+        0 1px 1px rgba($color: $main-darker, $alpha: 0.5),
+        0 2px 1px rgba($color: $main-darker, $alpha: 0.5),
+        0 3px 1px rgba($color: $main-darker, $alpha: 0.5),
+        0 4px 1px rgba($color: $main-darker, $alpha: 0.5),
+        0 5px 1px rgba($color: $main-darker, $alpha: 0.5);
+        svg{
+            transform: translateX(0%);
+        }
+    }
+}
+
+
+
+
+@media screen and (min-width: 1200px) {
+    .products-container {
+        img {
+            width: 75% !important;
+        }
+    }
+}
+
+@media (max-width: 768px){
+    .container, .container-sm {
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 730px){
+    .cart-container>div {
+        flex-direction: column;
+        button{
+            margin-bottom: 10px;
+        }
+    }
+
+}
+
+
+@media screen and (max-width: 470px) {
+    .cart {
+        padding: 40px 10px !important;
+    }
+}
+
