@@ -39,7 +39,6 @@ export class ResetPasswordComponent {
         next: (response) => {
           this.responseMsg = response
           this._ToastrService.success(this.responseMsg, 'Reset Password');
-          console.log(response)
           if (response.statusMsg != "fail") {
             this._ToastrService.success(response.statusMsg, 'Reset Password');
             this.isLoading = false;

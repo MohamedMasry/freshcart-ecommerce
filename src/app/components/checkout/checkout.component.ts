@@ -76,7 +76,6 @@ export class CheckoutComponent implements OnInit {
           this._ApiDataService.cartCashPayment(this.cartID, this.checkOutForm.value).subscribe({
             next: (response) => {
               this.responseMsg = response;
-              console.log(this.responseMsg)
               if (response.status === "success") {
                 this._Router.navigate(['/allorders']);
                 this.isLoading = false;
@@ -95,7 +94,6 @@ export class CheckoutComponent implements OnInit {
           this._ApiDataService.cartOnlinePayment(this.cartID, this.checkOutForm.value).subscribe({
             next: (response) => {
               this.responseMsg = response;
-              console.log(this.responseMsg)
               if (response.status === "success") {
                 this.isLoading = false;
                 window.open(response.session.url, '_self');
